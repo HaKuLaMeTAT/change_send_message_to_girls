@@ -167,18 +167,18 @@ data = {
     "color": get_random_color()
   },
   # 正计时
-  # "having_day": {
-  #   "value": get_memorial_days_count(),
-  #   "color": get_random_color()
-  # },
+  "having_day": {
+    "value": get_memorial_days_count(start_date),
+    "color": get_random_color()
+  },
   # 每日一言
   "words": {
     "value": get_words(),
     "color": get_random_color()
   },
   # 倒计时
-  # "endday_left": get_counter_left,
-  # "color": get_random_color()
+  "endday_left": get_counter_left(end_date),
+  "color": get_random_color()
 }
 
 # 倒计时添加到数据
