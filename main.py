@@ -167,15 +167,15 @@ data = {
     "color": get_random_color()
   },
   # 正计时
-  "love_days": {
-    "value": get_memorial_days_count(start_date),
-    "color": get_random_color()
-  },
+  #"love_days": {
+  #  "value": get_memorial_days_count(start_date),
+  #  "color": get_random_color()
+  #},
   # 倒计时
-  "birthday_left": {
-    "value": get_counter_left(end_date),
-    "color": get_random_color()
-  },
+  #"birthday_left": {
+  #  "value": get_counter_left(end_date),
+  #  "color": get_random_color()
+  #},
   # 每日一言
   "words": {
     "value": get_words(),
