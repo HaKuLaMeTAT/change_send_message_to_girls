@@ -155,7 +155,7 @@ data = {
   },
   # 湿度
   "humidity": {
-    "value": weather['humidity']+%,
+    "value": weather['humidity'],
     "color": get_random_color()
   },
   # 风力
