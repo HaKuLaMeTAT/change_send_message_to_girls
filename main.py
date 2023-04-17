@@ -40,6 +40,7 @@ if template_id is None:
   
 if city is None or weather_apikey is None:
   print('没有城市行政区域编码或者apikey')
+  print('city:%s apikey:%s' % (city, weather_apikey))
   city_id = None
 else:
   city_idurl = f"https://geoapi.qweather.com/v2/city/lookup?location={city}&key={wai}"
