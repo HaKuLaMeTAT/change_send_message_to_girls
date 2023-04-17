@@ -14,6 +14,8 @@ today = datetime.strptime(str(nowtime.date()), "%Y-%m-%d") #今天的日期
 # 开始日正数
 start_date = os.getenv('START_DATE')
 city = os.getenv('CITY')
+weather_apikey = os.getenv('WEATHER_APIKEY')
+wai = weather_apikey
 # 生日，最终日倒数
 # birthday = os.getenv('BIRTHDAY')
 end_date = os.getenv('END_DATE')
@@ -35,6 +37,15 @@ if not user_ids:
 if template_id is None:
   print('请设置 TEMPLATE_ID')
   exit(422)
+  
+if city is None or weather_apikey is None:
+  print('没有城市行政区域编码或者apikey')
+  city_id = None
+else:
+  city_idurl = f"https://geoapi.qweather.com/v2/city/lookup?location={city}&key={wai}"
+  city_data = json.loads(requests.get(city_idurl).content.decode('utf-8'))['location'][0]
+  city_id = city_data.get("id")
+  city_name = city_data.get('name')
 
 # weather 直接返回对象，在使用的地方用字段进行调用。
 def get_weather():
