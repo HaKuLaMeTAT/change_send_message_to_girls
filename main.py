@@ -41,12 +41,31 @@ def get_weather():
   if city is None:
     print('请设置城市')
     return None
-  url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
-  res = requests.get(url).json()
-  if res is None:
-    return None
-  weather = res['data']['list'][0]
+  weatherurl = f"https://devapi.qweather.com/v7/weather/3d?location={city_id}&key={wai}&lang=zh"
+  weather = json.loads(requests.get(weatherurl).content.decode('utf-8'))["daily"][0]
   return weather
+  #url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
+  #res = requests.get(url).json()
+  #if res is None:
+  #  return None
+  #weather = res['data']['list'][0]
+  #return weather
+ 
+#实时温度
+def get_realtimeweather():
+  if city_id is None:
+    return None
+  realtimeweatherurl = f"https://devapi.qweather.com/v7/weather/now?location={city_id}&key={wai}&lang=zh"
+  realtimeweather = json.loads(requests.get(realtimeweatherurl).content.decode('utf-8'))["now"]["temp"]
+  return 
+
+# 获取空气质量
+def get_airqu():
+  air_quurl = f'https://devapi.qweather.com/v7/air/5d?location={city_id}&key={wai}&lang-zh'
+  if city_id is None:
+    return None
+  airqu = json.loads(requests.get(air_quurl).content.decode('utf-8'))["daily"][0]
+  return airqu
 
 # 获取当前日期为星期几
 def get_week_day():
@@ -107,6 +126,9 @@ def split_dates(aim_dates):
   return aim_dates.split('\n')
 
 weather = get_weather()
+airqu = get_airqu()
+realtimeweather = get_realtimeweather()
+
 if weather is None:
   print('获取天气失败')
   exit(422)
@@ -128,42 +150,42 @@ data = {
   },
   # 天气状况
   "weather": {
-    "value": weather['weather'],
+    "value": f"白天：{weather['textDay']}  ;  夜晚：{weather['textNight']}",
     "color": get_random_color()
   },
   # 湿度
   "humidity": {
-    "value": weather['humidity'],
+    "value": weather['humidity']+%,
     "color": get_random_color()
   },
   # 风力
   "wind": {
-    "value": weather['wind'],
+    "value": f"白天：{weather['windScaleDay']}级  ;  夜晚：{weather['windScaleNight']}级",
     "color": get_random_color()
   },
 
   "air_data": {
-    "value": weather['airData'],
+    "value": airqu['aqi'],
     "color": get_random_color()
   },
   # 空气质量
   "air_quality": {
-    "value": weather['airQuality'],
+    "value": airqu['category'],
     "color": get_random_color()
   },
-  # 温度
+  # 实时温度
   "temperature": {
-    "value": math.floor(weather['temp']),
+    "value": realtimeweather,
     "color": get_random_color()
   },
   # 最高温
   "highest": {
-    "value": math.floor(weather['high']),
+    "value": weather['tempMax'],
     "color": get_random_color()
   },
   # 最低温度
   "lowest": {
-    "value": math.floor(weather['low']),
+    "value": weather['tempMin'],
     "color": get_random_color()
   },
   # 正计时
