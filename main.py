@@ -14,7 +14,8 @@ today = datetime.strptime(str(nowtime.date()), "%Y-%m-%d") #今天的日期
 # 开始日正数
 start_date = os.getenv('START_DATE')
 city = os.getenv('CITY')
-weather_apikey = os.getenv('WEATHER_APIKEY')
+#weather_apikey = os.getenv('WEATHER_APIKEY')
+weather_apikey = "86789418c26a41c499b20e133b6c7ed4"
 wai = weather_apikey
 # 生日，最终日倒数
 # birthday = os.getenv('BIRTHDAY')
