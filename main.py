@@ -71,7 +71,7 @@ def get_realtimeweather():
     return None
   realtimeweatherurl = f"https://devapi.qweather.com/v7/weather/now?location={city_id}&key={wai}&lang=zh"
   realtimeweather = json.loads(requests.get(realtimeweatherurl).content.decode('utf-8'))["now"]["temp"]
-  return 
+  return realtimeweather
 
 # 获取空气质量
 def get_airqu():
